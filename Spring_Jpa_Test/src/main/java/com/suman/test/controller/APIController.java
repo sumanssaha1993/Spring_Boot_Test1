@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,6 +43,17 @@ public class APIController {
 			return new ResponseEntity<String>("User Creation Failed",HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		
+	}
+	
+	@RequestMapping(value="/getuserdata/{user_name}", method=RequestMethod.GET)
+	public UserDTO getUserData(@PathVariable String user_name) {
+		UserDTO user = null;
+		try {
+			user = service.getUser(user_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 	
 	@RequestMapping(value="/hello", method=RequestMethod.GET)

@@ -38,6 +38,17 @@ public class APIServiceImpl implements APIService{
 		
 	}
 
+	@Override
+	public UserDTO getUser(String user_name) {
+		UserDTO user = null;
+		try {
+			user = dao.findUserData(user_name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+
 	
 	
 	
