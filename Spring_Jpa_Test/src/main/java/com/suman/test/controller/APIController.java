@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -53,7 +54,7 @@ public class APIController {
 		try {
 			boolean is_first = true;
 			int count = 0;
-			Map<Integer, ArrayList<String>> data_map = new HashMap<Integer, ArrayList<String>>();
+			Map<Integer, ArrayList<String>> data_map = new LinkedHashMap<Integer, ArrayList<String>>();
 			FileInputStream file = new FileInputStream(new File("C:\\Users\\mm0419\\Desktop\\test_data.xlsx"));
 			 
             XSSFWorkbook workbook = new XSSFWorkbook(file);
