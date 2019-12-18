@@ -64,46 +64,49 @@ public class APIController {
 	@RequestMapping(value="/excelupload", method=RequestMethod.POST)
 	public ResponseEntity<String> uploadExcelData() {
 		try {
-			boolean is_first = true;
 			int count = 0;
 			Map<Integer, ArrayList<String>> data_map = new LinkedHashMap<Integer, ArrayList<String>>();
 			FileInputStream file = new FileInputStream(new File("C:\\Users\\mm0419\\Desktop\\test_data.xlsx"));
 			 
             XSSFWorkbook workbook = new XSSFWorkbook(file);
  
-            XSSFSheet sheet = workbook.getSheetAt(0);
- 
-            Iterator<Row> rowIterator = sheet.iterator();
-            while (rowIterator.hasNext()) 
-            {
-                Row row = rowIterator.next();
-                Iterator<Cell> cellIterator = row.cellIterator();
-                ArrayList<String> temp = new ArrayList<String>();
-                if(!is_first) {
-                	while (cellIterator.hasNext()) 
-                    {
-                        Cell cell = cellIterator.next();
-                        	switch (cell.getCellType()) 
-                            {
-                                case Cell.CELL_TYPE_NUMERIC:
-                                	Integer i = (int)cell.getNumericCellValue();
-                                    System.out.print(i.toString());
-                                    temp.add(i.toString());
-                                    break;
-                                case Cell.CELL_TYPE_STRING:
-                                    System.out.print(cell.getStringCellValue());
-                                    temp.add(cell.getStringCellValue());
-                                    break;
-                            }
-                    }
-                }else {
-                	is_first = false;
-                	continue;
-                }
-                data_map.put(count, temp);
-                count++;
-                System.out.println("");
+            for(int m=0; m<2; m++) {
+            	 boolean is_first = true;
+            	 XSSFSheet sheet = workbook.getSheetAt(m);
+            	 
+                 Iterator<Row> rowIterator = sheet.iterator();
+                 while (rowIterator.hasNext()) 
+                 {
+                     Row row = rowIterator.next();
+                     Iterator<Cell> cellIterator = row.cellIterator();
+                     ArrayList<String> temp = new ArrayList<String>();
+                     if(!is_first) {
+                     	while (cellIterator.hasNext()) 
+                         {
+                             Cell cell = cellIterator.next();
+                             	switch (cell.getCellType()) 
+                                 {
+                                     case Cell.CELL_TYPE_NUMERIC:
+                                     	Integer i = (int)cell.getNumericCellValue();
+                                         System.out.print(i.toString());
+                                         temp.add(i.toString());
+                                         break;
+                                     case Cell.CELL_TYPE_STRING:
+                                         System.out.print(cell.getStringCellValue());
+                                         temp.add(cell.getStringCellValue());
+                                         break;
+                                 }
+                         }
+                     }else {
+                     	is_first = false;
+                     	continue;
+                     }
+                     data_map.put(count, temp);
+                     count++;
+                     System.out.println("");
+                 }
             }
+           
             file.close();
             service.insertDataFromExcel(data_map);
             return new ResponseEntity<String>("Uploaded Successfully",HttpStatus.OK);
