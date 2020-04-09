@@ -13,7 +13,7 @@ public class SpringJpaTestApplication extends SpringBootServletInitializer {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringJpaTestApplication.class, args);
 	}
-
+ 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(SpringJpaTestApplication.class);
