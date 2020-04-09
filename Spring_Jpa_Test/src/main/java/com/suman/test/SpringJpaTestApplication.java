@@ -14,6 +14,7 @@ public class SpringJpaTestApplication extends SpringBootServletInitializer {
 		SpringApplication.run(SpringJpaTestApplication.class, args);
 	}
  
+	
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
 		return builder.sources(SpringJpaTestApplication.class);
